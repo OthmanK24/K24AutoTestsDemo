@@ -1,0 +1,32 @@
+name: Run Android QA
+# This workflow on dispatch event
+# Runs QA and notifies android project by a dispatch event
+
+on:
+  repository_dispatch:
+
+jobs:
+  build:
+
+    name: Run Android QA
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start workflow
+        run: echo "workflow started"
+
+      - name: echo event action
+        run: echo "action triggered - ${{ github.event.action }}"
+
+      - name: run qa
+        run: echo "....... running qa ........"
+
+      - name: notify automated tests project
+        run: |
+          curl -X POST https://api.github.com/repos/OthmanK24/K24-Demo-App/dispatches \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "qa-success", "client_payload": { "some": "thing" }}'
+
+      - name: End workflow
+        run: echo "workflow ended"
