@@ -21,7 +21,7 @@ jobs:
       - name: run qa
         run: echo "....... running qa ........"
 
-      - name: notify automated tests project
+      - name: notify android project of success status
         run: |
           curl -X POST https://api.github.com/repos/OthmanK24/K24-Demo-App/dispatches \
           -H 'Accept: application/vnd.github.v3+json' \
